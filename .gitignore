@@ -1,4 +1,8 @@
-data/
 data-check.ipynb
 models/
 wandb/
+visualize.py
+explore_dani_data.py
+main.py
+uq_results/
+uq_results_analyses/

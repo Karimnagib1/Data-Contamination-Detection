@@ -1,41 +1,4 @@
 
-"""
-# Full training
-python trl/scripts/sft.py \
-    --model_name_or_path Qwen/Qwen2-0.5B \
-    --dataset_name trl-lib/Capybara \
-    --learning_rate 2.0e-5 \
-    --num_train_epochs 1 \
-    --packing \
-    --per_device_train_batch_size 2 \
-    --gradient_accumulation_steps 8 \
-    --gradient_checkpointing \
-    --logging_steps 25 \
-    --eval_strategy steps \
-    --eval_steps 100 \
-    --output_dir Qwen2-0.5B-SFT \
-    --push_to_hub
-
-# LoRA
-python trl/scripts/sft.py \
-    --model_name_or_path Qwen/Qwen2-0.5B \
-    --dataset_name trl-lib/Capybara \
-    --learning_rate 2.0e-4 \
-    --num_train_epochs 1 \
-    --packing \
-    --per_device_train_batch_size 2 \
-    --gradient_accumulation_steps 8 \
-    --gradient_checkpointing \
-    --logging_steps 25 \
-    --eval_strategy steps \
-    --eval_steps 100 \
-    --use_peft \
-    --lora_r 32 \
-    --lora_alpha 16 \
-    --output_dir Qwen2-0.5B-SFT \
-    --push_to_hub
-"""
-
 import argparse
 
 from datasets import load_dataset, load_from_disk
@@ -51,6 +14,23 @@ from trl import (
     get_peft_config,
     get_quantization_config,
 )
+# Fix the random seeds
+
+import random
+import numpy as np
+import torch
+
+random_seed = 42
+random.seed(random_seed)
+np.random.seed(random_seed)
+torch.manual_seed(random_seed)
+torch.cuda.manual_seed(random_seed)
+torch.cuda.manual_seed_all(random_seed)
+torch.backends.cudnn.deterministic = True
+torch.backends.cudnn.benchmark = False
+
+
+
 
 def format_gpt2_prompts(example):
     output_texts = []
