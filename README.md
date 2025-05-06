@@ -110,11 +110,11 @@ python classify.py
 ```
 
 
-
+<!-- 
 ## 📝 Notes
 
 * SAR is an uncertainty-based method and requires access to model logits.
 * The similarity-based classifier is fully black-box and uses metrics like BLEU, ROUGE, BERTScore, and NLI similarity.
 * Length-controlled generation can improve in-domain accuracy but may reduce generalization.
 * Min-\$k%\$ probability is also implemented as a white-box baseline.
-
+ -->
